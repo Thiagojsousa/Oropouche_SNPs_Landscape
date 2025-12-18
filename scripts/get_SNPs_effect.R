@@ -456,7 +456,6 @@ readr::write_csv(merged_LMS, merged_out_path)
 
 summary_out_csv  <- sub("\\.csv$", "_summary.csv", PARAM$merged_out_csv)
 summary_out_path <- file.path(PARAM$output_dir, summary_out_csv)
-readr::write_csv(summary_LMS, summary_out_path)
 
 if (verbose) {
   message("Merged catalogue: ", merged_out_path)
