@@ -60,10 +60,8 @@
 PARAM <- list(
   
   ## 1.1) Working directory (where FASTAs are located and where outputs will be written) ----
-  workdir = "/home/bioinfo/02_Analysis/Obito_ES/fastas_orov_obitos-2025",
-  output_dir = "/home/bioinfo/02_Analysis/Obito_ES/fastas_orov_obitos-2025/output_files",
-  
-    #workdir = "/home/user/folder_path",
+  workdir = "/home/user/folder_path",
+  output_dir = "/home/user/folder_path/output_files",
   
   ## 1.2) Segments: aligned FASTA, reference header, strand, and output ----
   segments = list(
@@ -185,9 +183,7 @@ CODON_AA <- c(
   "GGT"="G","GGC"="G","GGA"="G","GGG"="G"
 )
 
-
 ## 3) HELPER FUNCTIONS ----
-
 
 # 3.1) Reverse-complement base
 comp_base <- function(x) {
@@ -449,7 +445,7 @@ for (job in segment_jobs) {
   }
 }
 
-## 5) MERGE L + M + S (from in-memory data frames) ----
+## 5) MERGE L + M + S ----
 
 merged_LMS <- dplyr::bind_rows(all_results) %>%
   dplyr::mutate(SEGMENT = CHROM) %>%
