@@ -3,15 +3,17 @@
 [![R](https://img.shields.io/badge/R-%E2%89%A5%204.1-blue)](https://www.r-project.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](#license)
 
-An **R** pipeline to catalogue SNPs (with coding impact) and generate a *publication-ready* **mutational landscape** figure for Oropouche segments **L, M, and S**.
+An **R** pipeline to catalogue SNPs (with coding impact) and generate a *publication-ready* **mutational landscape** figure for Oropouche segments **L, M, and S** — now provided as a **single script** with **run flags** (Part 1 / Part 2) and **automatic caching** (skip Part 1 if outputs already exist).
 
 ---
 
 ## Table of contents
-- [Recommended repository layout](#recommended-repository-layout)
+- [Repository layout](#repository-layout)
 - [Inputs](#inputs)
 - [Outputs](#outputs)
 - [How to run](#how-to-run)
+  - [Flags: run Part 1 / Part 2](#flags-run-part-1--part-2)
+  - [Automatic skip (cache) for Part 1](#automatic-skip-cache-for-part-1)
 - [Pipeline overview](#pipeline-overview)
 - [Plot visual customizations](#plot-visual-customizations)
   - [Colours](#colours)
@@ -24,24 +26,27 @@ An **R** pipeline to catalogue SNPs (with coding impact) and generate a *publica
 
 ## Repository layout
 
+Recommended structure:
+
 ```
 .
 ├── scripts/
-│   ├── get_SNPs_effect.R
-│   └── plot_snps_landscape_LMS.R
-├── data_example/
+│   ├── Mapping-and-plot_SNPs_landscape.R         
+│   └── Mapping-and-plot_SNPs_landscape_pt-br.R   
+├── example_data/                    
 │   ├── L_aln.fasta
 │   ├── M_aln.fasta
-│   ├── S_aln.fasta
-│   └── (optional) Tabela_codons.csv
-├── outputs/
-│   ├── LMS_snps_catalogo.csv
-│   ├── LMS_snps_catalogo_summary.csv
-│   └── figures/
-│       ├── Mutational_landscape_L_M_S.png
-│       ├── Mutational_landscape_L_M_S.svg
-│       └── Mutational_landscape_L_M_S.pdf
-└── README.md
+│   └── S_aln.fasta
+└── outputs/                         
+    ├── L_snps_catalogue.csv
+    ├── M_snps_catalogue.csv
+    ├── S_snps_catalogue.csv
+    ├── LMS_snps_catalogue.csv
+    ├── LMS_snps_catalogue_summary.csv
+    └── figures/
+        ├── Mutational_landscape_L_M_S.png
+        ├── Mutational_landscape_L_M_S.svg
+        └── Mutational_landscape_L_M_S.pdf
 ```
 
 ---
@@ -52,17 +57,18 @@ An **R** pipeline to catalogue SNPs (with coding impact) and generate a *publica
 - Nucleotide **aligned FASTA (MSA)**, one per segment (L/M/S).
   - Must contain **one reference** and **N samples** (e.g., `Seq_01`, `Seq_02`, …).
   - All sequences must have the **same length** (valid alignment).
+- These FASTA files are read from **`PARAM$input_dir`** (Part 1).
 
 ---
 
 ## Outputs
 
-### Catalogue
-- `L_snps_catalogo.csv`, `M_snps_catalogo.csv`, `S_snps_catalogo.csv`
-- `LMS_snps_catalogo.csv` (merged L+M+S)
-- `LMS_snps_catalogo_summary.csv` (summary by sample/segment/effect)
+### Catalogue (Part 1)
+- `L_snps_catalogue.csv`, `M_snps_catalogue.csv`, `S_snps_catalogue.csv`
+- `LMS_snps_catalogue.csv` (merged L+M+S)
+- `LMS_snps_catalogue_summary.csv` (summary by sample/segment/effect)
 
-### Figure
+### Figure (Part 2)
 - `Mutational_landscape_L_M_S.png`
 - `Mutational_landscape_L_M_S.svg`
 - `Mutational_landscape_L_M_S.pdf`
@@ -73,25 +79,70 @@ An **R** pipeline to catalogue SNPs (with coding impact) and generate a *publica
 
 This pipeline is intended for **interactive execution in RStudio**.
 
-### Step 0) Open the scripts
+### Step 0) Open the script
 In the RStudio **Files** panel, open:
-- `scripts/get_SNPs_effect.R`
-- `scripts/plot_snps_landscape_LMS.R`
 
-### Step 1) Edit parameters
-In each script, locate and edit the parameter block (e.g., `PARAM` / `PARAM_PLOT`) to set:
-- directories (`workdir`, `out_dir_fig`)
-- input file names (FASTAs / CSVs)
-- reference IDs (`ref_id`), when applicable
+- `scripts/Mapping-and-plot_SNPs_landscape.R`
 
-### Step 2) Run in RStudio (no `source()`)
+### Step 1) Edit parameters (BLOCO 1)
+In the script, locate and edit the parameter blocks:
+
+- `PARAM` (Part 1: FASTA inputs, reference headers, output folder)
+- `PARAM_PLOT` (Part 2: plot inputs/outputs and figure export options)
+
+At minimum, confirm:
+- `PARAM$input_dir` (where your aligned FASTAs are located)
+- `PARAM$output_dir` (where CSVs and Figures will be written; also the default input for Part 2)
+- `PARAM$segments$L/M/S$fasta_aln` and `PARAM$segments$L/M/S$ref_id`
+
+### Step 2) Run in RStudio
 Choose one:
 - Select the **entire script** and click **Run** (or `Ctrl+A` → `Ctrl+Enter`);
 - Run **block-by-block** (recommended): select each block and press `Ctrl+Enter`.
 
-### Execution order
-1. Run `get_SNPs_effect.R` (generates `LMS_snps_catalogo.csv` and summary tables)
-2. Run `plot_snps_landscape_LMS.R` (exports PNG/SVG/PDF to `outputs/figures/`)
+---
+
+
+### Note on Part 2 input
+By default, Part 2 reads `LMS_snps_catalogue.csv` from **`PARAM$output_dir`** (because it is produced by Part 1).  
+If you want to plot a catalogue generated elsewhere, set `PARAM_PLOT$workdir` and/or `PARAM_PLOT$arquivo_entrada` accordingly.
+
+## Flags: run Part 1 / Part 2
+
+At the top of the script (BLOCO 0), set:
+
+```r
+RUN_PART1   <- TRUE   # generate SNP catalogue (CSVs)
+RUN_PART2   <- TRUE   # generate the mutational landscape plot
+FORCE_PART1 <- FALSE  # recalc Part 1 even if LMS_snps_catalogue.csv already exists
+```
+
+Common use cases:
+
+- **Run everything (Part 1 + Part 2)**  
+  `RUN_PART1 <- TRUE` and `RUN_PART2 <- TRUE`
+
+- **Run only Part 1 (generate/refresh CSVs)**  
+  `RUN_PART1 <- TRUE` and `RUN_PART2 <- FALSE`
+
+- **Run only Part 2 (plot), without recalculating**  
+  `RUN_PART1 <- FALSE` and `RUN_PART2 <- TRUE`  
+  (requires `LMS_snps_catalogue.csv` to exist)
+
+---
+
+## Automatic skip (cache) for Part 1
+
+Part 1 checks whether the merged catalogue exists in **`PARAM$output_dir`**:
+
+- `file.path(PARAM$output_dir, PARAM$merged_out_csv)`  
+  (default: `.../LMS_snps_catalogue.csv`)
+
+If it exists and `FORCE_PART1 <- FALSE`, **Part 1 is skipped automatically** and the pipeline proceeds to Part 2 (if enabled).
+
+To force recalculation (e.g., after changing FASTAs/ref_id/filters), set:
+
+- `FORCE_PART1 <- TRUE`
 
 ---
 
@@ -110,7 +161,7 @@ Choose one:
 
 # Plot visual customizations
 
-The sections below provide snippets to apply in `plot_snps_landscape_LMS.R`.
+The sections below describe what to edit **inside the Part 2 block** of the combined script.
 
 ## Colours
 
@@ -121,7 +172,7 @@ The sections below provide snippets to apply in `plot_snps_landscape_LMS.R`.
 
 ```r
 scale_color_manual(
-  name   = "",
+  name   = "SNPs landscape of L, M and S segments",
   breaks = c("Syn", "Nonsyn", "Unk"),
   values = c(Syn = "#1f78b4", Nonsyn = "#e31a1c", Unk = "grey50"),
   labels = c(
@@ -139,23 +190,26 @@ scale_color_manual(
 Recommendation:
 - **PNG**: 300–600 dpi
 - **SVG/PDF**: vector formats (ideal for Inkscape/Illustrator)
-- It's likely that some SNPs will overlap, so it's recommended to open the SVG file with Inkscape (https://inkscape.org/) and adjust the positions. 
+- Overlapping labels may happen; open the SVG in Inkscape and adjust if needed.
 
-```r
-ggsave("outputs/figures/plot.svg", plot = p, width = 14, height = 8, units = "in")
-ggsave("outputs/figures/plot.pdf", plot = p, width = 14, height = 8, units = "in")
-ggsave("outputs/figures/plot.png", plot = p, width = 14, height = 8, units = "in", dpi = 600)
-```
+The script exports by default to:
+
+- `file.path(PARAM_PLOT$out_dir_fig, "Mutational_landscape_L_M_S.*")`
 
 ---
 
 ## Troubleshooting
 
 ### Reference not found
-Ensure `ref_id` **exactly matches** the reference header in the aligned FASTA.
+Ensure `ref_id` **exactly matches** the reference header in the aligned FASTA located in `PARAM$input_dir`.
 
 ### FASTA is not an alignment
 All sequences must have the **same length**.
+
+### Part 2: input CSV not found
+If you run Part 2 only (`RUN_PART1 <- FALSE`), ensure the file exists at:
+
+- `file.path(PARAM_PLOT$workdir, PARAM_PLOT$arquivo_entrada)`
 
 ---
 
@@ -170,5 +224,5 @@ Add a `LICENSE` file at the repository root.
 
 Suggestion:
 
-> Thiago Sousa. Oropouche SNP plotting pipeline (L/M/S) (vX.Y.Z) [Computer software]. Orcid: orcid.org/0000-0001-9809-8883. Accessed: YYYY-MM-DD. 
+> Thiago Sousa. Oropouche SNP plotting pipeline (L/M/S) (vX.Y.Z) [Computer software]. Orcid: orcid.org/0000-0001-9809-8883. Accessed: YYYY-MM-DD.  
 > Thiagojsousa. Oropouche SNP plotting pipeline (L/M/S) [Computer software]. GitHub: Thiagojsousa/Oropouche_Mutational_Landscape_SNPs.git. Accessed: YYYY-MM-DD. Website: thiagojsousa.com.br.

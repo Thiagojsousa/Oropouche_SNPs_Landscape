@@ -1,11 +1,11 @@
 SAMPLE,SEGMENT,EFFECT,N
-Node_01,S,synonymous,1
-Node_02,S,synonymous,8
 Seq_01,L,synonymous,31
 Seq_01,L,nonsynonymous,4
 Seq_01,M,synonymous,17
 Seq_01,M,nonsynonymous,6
+Seq_01,S,synonymous,1
 Seq_02,L,synonymous,60
 Seq_02,L,nonsynonymous,6
 Seq_02,M,synonymous,27
 Seq_02,M,nonsynonymous,8
+Seq_02,S,synonymous,8
