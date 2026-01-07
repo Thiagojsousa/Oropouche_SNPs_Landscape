@@ -609,14 +609,14 @@ if (!RUN_PART2) {
   
   print(p)
   
-  ggsave(file.path(PARAM_PLOT$out_dir_fig, "Mutational_landscape_L_M_S.svg"),
+  ggsave(file.path(PARAM_PLOT$out_dir_fig, "mutational_landscape_L_M_S.svg"),
          plot = p, width = PARAM_PLOT$width_in, height = PARAM_PLOT$height_in, units = "in")
-  ggsave(file.path(PARAM_PLOT$out_dir_fig, "Mutational_landscape_L_M_S.pdf"),
+  ggsave(file.path(PARAM_PLOT$out_dir_fig, "mutational_landscape_L_M_S.pdf"),
          plot = p, width = PARAM_PLOT$width_in, height = PARAM_PLOT$height_in, units = "in")
-  ggsave(file.path(PARAM_PLOT$out_dir_fig, "Mutational_landscape_L_M_S.png"),
+  ggsave(file.path(PARAM_PLOT$out_dir_fig, "mutational_landscape_L_M_S.png"),
          plot = p, width = PARAM_PLOT$width_in, height = PARAM_PLOT$height_in, units = "in", dpi = PARAM_PLOT$dpi_png)
   
   message("Final figure written to: ",
-          file.path(PARAM_PLOT$out_dir_fig, "Mutational_landscape_L_M_S.png"))
+          file.path(PARAM_PLOT$out_dir_fig, "mutational_landscape_L_M_S.png"))
   
 }  # end Part 2
