@@ -182,6 +182,7 @@ scale_color_manual(
   )
 )
 ```
+[![Mutational landscape (L/M/S)](outputs/figures/Mutational_landscape_L_M_S.png)](outputs/figures/Mutational_landscape_L_M_S.png)
 
 ---
 
