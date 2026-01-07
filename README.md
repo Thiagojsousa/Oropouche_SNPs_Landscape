@@ -3,7 +3,7 @@
 [![R](https://img.shields.io/badge/R-%E2%89%A5%204.1-blue)](https://www.r-project.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](#license)
 
-An **R** pipeline to catalogue SNPs (with coding impact) and generate a *publication-ready* **mutational landscape** figure for Oropouche segments **L, M, and S** — now provided as a **single script** with **run flags** (Part 1 / Part 2) and **automatic caching** (skip Part 1 if outputs already exist).
+An **R** pipeline to catalogue SNPs (including coding impact) and generate a *publication-ready* **mutational landscape** figure for Oropouche segments **L, M, and S**. The pipeline is provided as a **single script** with **run flags** (Part 1 / Part 2).
 
 ---
 
