@@ -157,6 +157,8 @@ To force recalculation (e.g., after changing FASTAs/ref_id/filters), set:
    - otherwise → **Unk**
 5. Merge L/M/S and produce the final landscape plot faceted by sample/Node.
 
+![Mutational landscape (L/M/S)](outputs/figures/SNPs_landscape_L_M_S.png)
+
 ---
 
 # Plot visual customizations
@@ -182,10 +184,6 @@ scale_color_manual(
   )
 )
 ```
-<p align="center">
-  <img src="outputs/figures/SNPs_landscape_L_M_S.png" width="1000" alt="Mutational landscape (L/M/S)">
-</p>
-
 
 ---
 
