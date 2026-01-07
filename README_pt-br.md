@@ -44,9 +44,9 @@ Estrutura recomendada:
     ├── LMS_snps_catalogue.csv
     ├── LMS_snps_catalogue_summary.csv
     └── figures/
-        ├── Mutational_landscape_L_M_S.png
-        ├── Mutational_landscape_L_M_S.svg
-        └── Mutational_landscape_L_M_S.pdf
+        ├── mutational_landscape_L_M_S.png
+        ├── mutational_landscape_L_M_S.svg
+        └── mutational_landscape_L_M_S.pdf
 ```
 
 ---
@@ -69,9 +69,9 @@ Estrutura recomendada:
 - `LMS_snps_catalogue_summary.csv` (sumário por amostra/segmento/efeito)
 
 ### Figura (Parte 2)
-- `Mutational_landscape_L_M_S.png`
-- `Mutational_landscape_L_M_S.svg`
-- `Mutational_landscape_L_M_S.pdf`
+- `mutational_landscape_L_M_S.png`
+- `mutational_landscape_L_M_S.svg`
+- `mutational_landscape_L_M_S.pdf`
 
 ---
 
@@ -157,6 +157,8 @@ Para forçar o recálculo (ex.: após mudar FASTAs/ref_id/filtros), defina:
    - demais casos → **Unk**
 5. Mescla L/M/S e produz o plot final facetado por amostra/Node.
 
+![mutational landscape (L/M/S)](outputs/figures/mutational_landscape_L_M_S.png)
+
 ---
 
 # Customizações visuais do plot
@@ -194,7 +196,7 @@ Recomendação:
 
 O script exporta por padrão para:
 
-- `file.path(PARAM_PLOT$out_dir_fig, "Mutational_landscape_L_M_S.*")`
+- `file.path(PARAM_PLOT$out_dir_fig, "mutational_landscape_L_M_S.*")`
 
 ---
 
