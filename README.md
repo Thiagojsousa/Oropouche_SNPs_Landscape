@@ -182,7 +182,10 @@ scale_color_manual(
   )
 )
 ```
-![Mutational landscape (L/M/S)](outputs/figures/Mutational_landscape_L_M_S.png)
+<p align="center">
+  <img src="outputs/figures/SNPs_landscape_L_M_S.png" width="1000" alt="Mutational landscape (L/M/S)">
+</p>
+
 
 ---
 
