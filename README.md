@@ -33,10 +33,10 @@ Recommended structure:
 ├── scripts/
 │   ├── Mapping-and-plot_SNPs_landscape.R         
 │   └── Mapping-and-plot_SNPs_landscape_pt-br.R   
-├── example_data/                    
-│   ├── L_aln.fasta
-│   ├── M_aln.fasta
-│   └── S_aln.fasta
+├── examples/                    
+│   ├── input/L_aln.fasta
+│   ├── input/M_aln.fasta
+│   └── input/S_aln.fasta
 └── outputs/                         
     ├── L_snps_catalogue.csv
     ├── M_snps_catalogue.csv
@@ -88,6 +88,14 @@ In the RStudio **Files** panel, open:
 In the script, locate and edit the parameter blocks:
 
 - `PARAM` (Part 1: FASTA inputs, reference headers, output folder)
+  - FASTA inputs and outputs (example paths):
+    - Linux/macOS: `/home/user/Oropouche_SNPs_Landscape/examples/input`
+    - Windows: `C:/Users/Name/.../examples/input`
+  - Reference headers (`ref_id`):
+    - Open the aligned FASTA and copy the exact header line (the full line that starts with `>`).
+    - Alternatively, print the first headers in a shell:
+      - `head -n 5 file.fasta`
+
 - `PARAM_PLOT` (Part 2: plot inputs/outputs and figure export options)
 
 At minimum, confirm:
@@ -157,7 +165,7 @@ To force recalculation (e.g., after changing FASTAs/ref_id/filters), set:
    - otherwise → **Unk**
 5. Merge L/M/S and produce the final landscape plot faceted by sample/Node.
 
-![Mutational landscape (L/M/S)](outputs/figures/mutational_landscape_L_M_S.png)
+![Mutational landscape (L/M/S)](examples/expected_output/figures/mutational_landscape_L_M_S.png)
 
 ---
 
@@ -226,5 +234,4 @@ Add a `LICENSE` file at the repository root.
 
 Suggestion:
 
-> Thiago Sousa. Oropouche SNP plotting pipeline (L/M/S) (vX.Y.Z) [Computer software]. Orcid: orcid.org/0000-0001-9809-8883. Accessed: YYYY-MM-DD.  
-> Thiagojsousa. Oropouche SNP plotting pipeline (L/M/S) [Computer software]. GitHub: Thiagojsousa/Oropouche_Mutational_Landscape_SNPs.git. Accessed: YYYY-MM-DD. Website: thiagojsousa.com.br.
+> Thiago Sousa. Oropouche SNP plotting pipeline (L/M/S) (v0.1.1) [Computer software]. Orcid: orcid.org/0000-0001-9809-8883. Website: thiagojsousa.com.br. Accessed: YYYY-MM-DD.  
