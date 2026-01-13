@@ -33,10 +33,10 @@ Estrutura recomendada:
 ├── scripts/
 │   ├── Mapping-and-plot_SNPs_landscape.R         
 │   └── Mapping-and-plot_SNPs_landscape_pt-br.R  
-├── example_data/                    
-│   ├── L_aln.fasta
-│   ├── M_aln.fasta
-│   └── S_aln.fasta
+├── examples/                    
+│   ├── input/L_aln.fasta
+│   ├── input/M_aln.fasta
+│   └── input/S_aln.fasta
 └── outputs/                         
     ├── L_snps_catalogue.csv
     ├── M_snps_catalogue.csv
@@ -85,16 +85,19 @@ No painel **Files** do RStudio, abra:
 - `scripts/Mapping-and-plot_SNPs_landscape_pt-br.R` (PT-BR) **ou**
 - `scripts/Mapping-and-plot_SNPs_landscape.R` (EN)
 
-### Passo 1) Edite os parâmetros (BLOCO 1)
-No script, localize e edite os blocos:
+### Etapa 1) Editar parâmetros (BLOCO 1)
+No script, localize e edite os blocos de parâmetros:
 
-- `PARAM` (Parte 1: pasta de entrada, headers de referência, pasta de saída)
-- `PARAM_PLOT` (Parte 2: entrada/saída do plot e opções de exportação)
+- `PARAM` (Parte 1: entradas FASTA, identificadores da referência e pasta de saída)
+  - Entradas FASTA e saídas (exemplos de caminhos):
+    - Linux/macOS: `/home/user/Oropouche_SNPs_Landscape/examples/input`
+    - Windows: `C:/Users/Name/.../examples/input`
+  - Cabeçalhos da referência (`ref_id`):
+    - Abra o FASTA alinhado e copie exatamente a linha do cabeçalho da sequência de referência (linha completa iniciada por `>`).
+    - Alternativamente, liste os primeiros cabeçalhos via shell:
+      - `head -n 5 file.fasta`
 
-No mínimo, confirme:
-- `PARAM$input_dir` (onde estão os FASTAs alinhados)
-- `PARAM$output_dir` (onde CSVs e figuras serão escritos; também é o input padrão da Parte 2)
-- `PARAM$segments$L/M/S$fasta_aln` e `PARAM$segments$L/M/S$ref_id`
+- `PARAM_PLOT` (Parte 2: entradas/saídas do gráfico e opções de exportação das figuras)
 
 ### Passo 2) Rode no RStudio
 Escolha uma opção:
@@ -157,7 +160,7 @@ Para forçar o recálculo (ex.: após mudar FASTAs/ref_id/filtros), defina:
    - demais casos → **Unk**
 5. Mescla L/M/S e produz o plot final facetado por amostra/Node.
 
-![mutational landscape (L/M/S)](outputs/figures/mutational_landscape_L_M_S.png)
+![mutational landscape (L/M/S)](examples/expected_output/figures/mutational_landscape_L_M_S.png)
 
 ---
 
