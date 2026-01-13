@@ -35,8 +35,8 @@ PARAM <- list(
   
   # Diretório de entrada contendo FASTAs alinhados (MSA) onde o script vai procurar:
   #   L_aln.fasta, M_aln.fasta, S_aln.fasta
-  input_dir  = "/home/Users/data_example",
-  output_dir = "/home/Users/outputs",
+  input_dir  = "/home/Users/workdir/examples/input",
+  output_dir = "/home/Users/workdir/outputs",
   
   # Segmentos (FASTA alinhado + header exato da referência no FASTA)
   segments = list(
